@@ -1,7 +1,8 @@
 # encoding: utf-8
 module PagSeguro
   class Notification
-    API_URL = "https://pagseguro.uol.com.br/Security/NPI/Default.aspx"
+    #API_URL = "https://pagseguro.uol.com.br/Security/NPI/Default.aspx"
+    API_URL = "https://pagseguro.uol.com.br/pagseguro-ws/checkout/NPI.jhtml"
 
     # Map all the attributes from PagSeguro.
     #
@@ -221,6 +222,7 @@ module PagSeguro
       request = Net::HTTP::Post.new(uri.path)
       request.form_data = denormalize(request_params)
       response = http.start {|r| r.request request }
+      puts "***** -- ***** " + response.body
       (response.body =~ /VERIFICADO/) != nil
     end
   end
